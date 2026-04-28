@@ -33,7 +33,7 @@ const PrivacyPolicy = () => {
 
             <section>
               <h2 className="text-xl font-semibold text-white mb-3">5. Contact Us</h2>
-              <p>If you have any questions about this Privacy Policy, please contact us at filmschoolkvrschool@gmail.com or +91 85559 52544.</p>
+              <p>If you have any questions about this Privacy Policy, please contact us at filmschoolkvr@gmail.com or +91 85559 52544.</p>
             </section>
           </div>
         </div>

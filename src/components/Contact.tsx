@@ -12,9 +12,22 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    // Reset form
+    
+    // Construct the WhatsApp message
+    const message = `*New Inquiry from KVR Film School website*%0A%0A` +
+      `*Name:* ${formData.name}%0A` +
+      `*Email:* ${formData.email}%0A` +
+      `*Phone:* ${formData.phone}%0A` +
+      `*Course:* ${formData.course}%0A` +
+      `*Message:* ${formData.message || 'No additional message'}`;
+
+    // WhatsApp URL with the pre-filled message
+    const whatsappUrl = `https://wa.me/918555952544?text=${message}`;
+
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
+
+    // Optional: Reset form
     setFormData({ name: '', email: '', phone: '', course: '', message: '' });
   };
 
@@ -34,8 +47,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'filmschoolkvrschool@gmail.com',
-      href: 'mailto:filmschoolkvrschool@gmail.com',
+      value: 'filmschoolkvr@gmail.com',
+      href: 'mailto:filmschoolkvr@gmail.com',
     },
     {
       icon: MapPin,

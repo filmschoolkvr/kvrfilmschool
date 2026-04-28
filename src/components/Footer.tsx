@@ -102,7 +102,7 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>+91 85559 52544</li>
-              <li>filmschoolkvrschool@gmail.com</li>
+              <li>filmschoolkvr@gmail.com</li>
               <li>ROYAL KUNJ APARTMENTS, Road No. 12, MLA Colony, Hyderabad</li>
             </ul>
           </div>
