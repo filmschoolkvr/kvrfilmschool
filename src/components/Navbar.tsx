@@ -14,11 +14,12 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#courses', label: 'Courses' },
-    { href: '#why-us', label: 'Why KVR' },
-    { href: '#gallery', label: 'Gallery' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/#about', label: 'About' },
+    { href: '/#courses', label: 'Courses' },
+    { href: '/workshop', label: 'Workshop' },
+    { href: '/#why-us', label: 'Why KVR' },
+    { href: '/#gallery', label: 'Gallery' },
+    { href: '/#contact', label: 'Contact' },
   ];
 
   return (
@@ -31,7 +32,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="/" className="flex items-center gap-2 group">
             <img
               src="/Kvr.png"
               alt="KVR Film School Logo"

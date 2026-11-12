@@ -11,6 +11,7 @@ import CareerOutcomes from '@/components/CareerOutcomes';
 import FinalCTA from '@/components/FinalCTA';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import WorkshopPopup from '@/components/WorkshopPopup';
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <WorkshopPopup variant="home" />
     </div>
   );
 };

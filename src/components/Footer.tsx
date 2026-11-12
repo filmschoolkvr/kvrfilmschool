@@ -4,17 +4,18 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { href: '#about', label: 'About Us' },
-    { href: '#courses', label: 'Courses' },
-    { href: '#gallery', label: 'Gallery' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/#about', label: 'About Us' },
+    { href: '/workshop', label: 'Workshop' },
+    { href: '/#courses', label: 'Courses' },
+    { href: '/#gallery', label: 'Gallery' },
+    { href: '/#contact', label: 'Contact' },
   ];
 
   const courses = [
-    { href: '#courses', label: 'Cinematography' },
-    { href: '#courses', label: 'Direction' },
-    { href: '#courses', label: 'DI Color Grading' },
-    { href: '#courses', label: 'Film Editing' },
+    { href: '/#courses', label: 'Cinematography' },
+    { href: '/#courses', label: 'Direction' },
+    { href: '/#courses', label: 'DI Color Grading' },
+    { href: '/#courses', label: 'Film Editing' },
   ];
 
   const socials = [

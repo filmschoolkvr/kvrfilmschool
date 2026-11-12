@@ -1,4 +1,6 @@
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Play, CalendarDays } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { WORKSHOP } from '@/lib/workshop';
 import heroBg from '@/assets/hero-bg.jpg';
 
 const Hero = () => {
@@ -20,6 +22,40 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 md:px-6 pt-20">
         <div className="max-w-4xl mx-auto text-center">
+          {/* Workshop announcement */}
+          <div className="cinema-card border-primary/40 glow-amber max-w-2xl mx-auto mb-10 p-4 md:p-5 text-left animate-fade-in">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 rounded bg-primary text-primary-foreground text-[10px] font-bold tracking-wider">
+                    NEW
+                  </span>
+                  <span className="text-xs font-semibold text-primary tracking-wide">2 DAYS WORKSHOP</span>
+                </div>
+                <p className="text-lg md:text-xl font-black uppercase italic leading-tight">
+                  Film Making <span className="text-gradient-amber">From Scratch</span>
+                </p>
+                <p className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
+                  <CalendarDays className="w-4 h-4 text-primary" />
+                  {WORKSHOP.dates} · Limited seats
+                </p>
+              </div>
+              <div className="flex gap-2 shrink-0">
+                <a
+                  href={WORKSHOP.paymentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary-hero text-sm px-4 py-2.5"
+                >
+                  Book Seat
+                </a>
+                <Link to="/workshop" className="btn-secondary-hero text-sm px-4 py-2.5">
+                  Details
+                </Link>
+              </div>
+            </div>
+          </div>
+
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
