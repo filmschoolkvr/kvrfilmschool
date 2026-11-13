@@ -48,10 +48,9 @@ const WorkshopPopup = ({ variant, delayMs = 3800 }: WorkshopPopupProps) => {
               <span className="text-xs font-semibold text-primary tracking-wide">2 DAYS WORKSHOP</span>
             </div>
 
-            <DialogTitle className="text-3xl md:text-4xl font-black uppercase italic leading-tight mb-1">
+            <DialogTitle className="font-display font-normal text-6xl md:text-7xl leading-[0.85] tracking-wide mb-1">
               Film Making
-              <br />
-              <span className="text-gradient-amber">From Scratch</span>
+              <span className="block font-serif italic text-4xl md:text-5xl text-primary">from scratch</span>
             </DialogTitle>
 
             <DialogDescription className="text-xs tracking-[0.35em] text-muted-foreground mb-6">
