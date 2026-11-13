@@ -13,28 +13,13 @@ interface WorkshopPopupProps {
 
 const WorkshopPopup = ({ variant, delayMs = 3800 }: WorkshopPopupProps) => {
   const [open, setOpen] = useState(false);
-  const storageKey = `workshop-popup-dismissed-${variant}`;
-
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(storageKey)) return;
-    } catch {
-      /* storage unavailable — still show the popup */
-    }
+    // Shown on every visit and every refresh
     const timer = setTimeout(() => setOpen(true), delayMs);
     return () => clearTimeout(timer);
-  }, [storageKey, delayMs]);
+  }, [delayMs]);
 
-  const handleOpenChange = (value: boolean) => {
-    setOpen(value);
-    if (!value) {
-      try {
-        sessionStorage.setItem(storageKey, '1');
-      } catch {
-        /* ignore */
-      }
-    }
-  };
+  const handleOpenChange = (value: boolean) => setOpen(value);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -42,6 +42,14 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
 
 const Workshop = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
+  const [showStickyCta, setShowStickyCta] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowStickyCta(window.scrollY > window.innerHeight * 0.8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +67,7 @@ const Workshop = () => {
     'w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-foreground placeholder:text-white/30 focus:outline-none focus:border-primary transition-colors';
 
   return (
-    <div className="min-h-screen bg-black text-foreground font-body">
+    <div className="min-h-screen bg-black text-foreground font-body pb-20">
       <Navbar />
 
       <main>
@@ -158,6 +166,17 @@ const Workshop = () => {
               ))}
             </ol>
           </div>
+
+          <div className="container mx-auto mt-16 flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/30 bg-primary/[0.04] px-8 py-8">
+            <p className="font-display text-3xl md:text-4xl tracking-wide text-center md:text-left">
+              All of this in two days.{' '}
+              <span className="font-serif italic normal-case text-primary">Seats are limited.</span>
+            </p>
+            <a href={WORKSHOP.paymentUrl} target="_blank" rel="noopener noreferrer" className={`${btnSolid} shrink-0`}>
+              Pay &amp; Book Seat
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
         </section>
 
         {/* ───────── CALL SHEET ───────── */}
@@ -186,6 +205,15 @@ const Workshop = () => {
               <p className="mt-6 text-sm text-white/50">
                 The venue and timings will be sent to you on WhatsApp after you register.
               </p>
+              <a
+                href={WORKSHOP.paymentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${btnSolid} mt-8`}
+              >
+                Pay Now &amp; Confirm Seat
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </section>
@@ -279,8 +307,44 @@ const Workshop = () => {
           <p className="text-[11px] uppercase tracking-[0.5em] text-white/40 -mt-4 md:-mt-10">
             {WORKSHOP.dates} · KVR Film School × Dotmov_studio
           </p>
+          <a
+            href={WORKSHOP.paymentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${btnSolid} mt-10`}
+          >
+            Book Your Seat
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
         </section>
       </main>
+
+      {/* Sticky payment bar — appears after scrolling past the hero */}
+      <div
+        className={`fixed bottom-0 inset-x-0 z-40 border-t border-white/10 bg-black/90 backdrop-blur-md transition-transform duration-500 ${
+          showStickyCta ? 'translate-y-0' : 'translate-y-full'
+        }`}
+      >
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <p className="font-display text-xl md:text-2xl tracking-wide leading-none truncate">
+              Film Making <span className="font-serif italic normal-case text-primary">from scratch</span>
+            </p>
+            <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-white/50 mt-1">
+              {WORKSHOP.dates} · Limited seats
+            </p>
+          </div>
+          <a
+            href={WORKSHOP.paymentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${btnSolid} shrink-0 px-5 md:px-8 py-3`}
+          >
+            Pay Now
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
 
       <Footer />
       <WorkshopPopup variant="workshop" />
