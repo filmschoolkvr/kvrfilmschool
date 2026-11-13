@@ -1,37 +1,44 @@
 import { useState } from 'react';
-import {
-  Camera,
-  Grid3x3,
-  Lightbulb,
-  Scan,
-  Clapperboard,
-  Palette,
-  Cpu,
-  HandHelping,
-  CalendarDays,
-  CreditCard,
-  MessageCircle,
-  Users,
-  ArrowRight,
-  Send,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WorkshopPopup from '@/components/WorkshopPopup';
 import { WORKSHOP } from '@/lib/workshop';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const WHATSAPP_NUMBER = '918555952544';
 
 const topics = [
-  { icon: Camera, title: 'How to Shoot', desc: 'Camera Basics & Real Shoot Tips' },
-  { icon: Grid3x3, title: 'Composition', desc: 'Create Stunning Frames' },
-  { icon: Lightbulb, title: 'Lighting', desc: 'Light it Right' },
-  { icon: Scan, title: 'Framing & Rules', desc: 'Tell a Better Story' },
-  { icon: Clapperboard, title: 'Editing', desc: 'Turn Footage into Magic' },
-  { icon: Palette, title: 'DI & Colour Grading', desc: 'Grade Like a Pro' },
-  { icon: Cpu, title: 'AI Tools', desc: 'Work Smarter, Create Bigger' },
-  { icon: HandHelping, title: 'Hands-on Practice', desc: 'Get Practical Experience' },
+  { title: 'How to Shoot', desc: 'Camera basics & real shoot tips' },
+  { title: 'Composition', desc: 'Create stunning frames' },
+  { title: 'Lighting', desc: 'Light it right' },
+  { title: 'Framing & Rules', desc: 'Tell a better story' },
+  { title: 'Editing', desc: 'Turn footage into magic' },
+  { title: 'DI & Colour Grading', desc: 'Grade like a pro' },
+  { title: 'AI Tools', desc: 'Work smarter, create bigger' },
+  { title: 'Hands-on Practice', desc: 'Get practical experience' },
 ];
+
+const callSheet = [
+  { label: 'Dates', value: WORKSHOP.dates },
+  { label: 'Duration', value: 'Two full days' },
+  { label: 'Format', value: 'Hands-on, practical' },
+  { label: 'Venue & Timings', value: 'Shared on WhatsApp' },
+  { label: 'Seats', value: 'Limited' },
+];
+
+/* Shared button styles — square, letter-spaced, cinematic */
+const btnSolid =
+  'inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] transition-colors duration-300 hover:bg-secondary';
+const btnGhost =
+  'inline-flex items-center justify-center gap-3 border border-white/30 text-foreground px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] transition-colors duration-300 hover:border-primary hover:text-primary';
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p className="flex items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-primary mb-6">
+    <span className="h-px w-10 bg-primary" />
+    {children}
+  </p>
+);
 
 const Workshop = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
@@ -43,169 +50,184 @@ const Workshop = () => {
       `*Name:* ${encodeURIComponent(formData.name)}%0A` +
       `*Phone:* ${encodeURIComponent(formData.phone)}%0A` +
       `*Email:* ${encodeURIComponent(formData.email)}%0A` +
-      `*Dates:* November 14 %26 15`;
+      `*Dates:* ${encodeURIComponent(WORKSHOP.dates)}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
     setFormData({ name: '', phone: '', email: '' });
   };
 
   const inputClass =
-    'w-full px-4 py-3 rounded-lg bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors';
+    'w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-foreground placeholder:text-white/30 focus:outline-none focus:border-primary transition-colors';
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-black text-foreground font-body">
       <Navbar />
+
       <main>
-        {/* Hero */}
-        <section className="relative overflow-hidden pt-32 pb-20 px-4 md:px-6">
-          <div className="absolute top-20 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[150px]" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-secondary/10 rounded-full blur-[120px]" />
+        {/* ───────── HERO — letterboxed title card ───────── */}
+        <section className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden film-grain">
+          <div
+            className="absolute inset-0 bg-cover bg-center scale-105"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          />
+          <div className="absolute inset-0 bg-black/75" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,black_85%)]" />
 
-          <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <p className="text-sm tracking-[0.3em] text-muted-foreground mb-4">
-                KVR FILM SCHOOL <span className="text-primary">×</span> DOTMOV_STUDIO PRESENTS
+          {/* Letterbox bars */}
+          <div className="absolute top-0 inset-x-0 h-[9vh] bg-black z-[2]" />
+          <div className="absolute bottom-0 inset-x-0 h-[9vh] bg-black z-[2]" />
+
+          {/* Viewfinder corners */}
+          <div className="absolute inset-x-6 md:inset-x-12 top-[13vh] bottom-[13vh] z-[2] pointer-events-none">
+            <span className="absolute top-0 left-0 w-8 h-8 border-t border-l border-white/40" />
+            <span className="absolute top-0 right-0 w-8 h-8 border-t border-r border-white/40" />
+            <span className="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-white/40" />
+            <span className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-white/40" />
+            <span className="absolute top-3 left-12 hidden md:flex items-center gap-2 text-[10px] tracking-[0.3em] text-white/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-glow-pulse" /> REC
+            </span>
+            <span className="absolute top-3 right-12 hidden md:block text-[10px] tracking-[0.3em] text-white/50">
+              2 DAYS · 4K
+            </span>
+          </div>
+
+          <div className="relative z-[3] text-center px-6 animate-fade-in">
+            <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-white/60 mb-8">
+              KVR Film School <span className="text-primary">×</span> Dotmov_studio
+              <span className="block mt-2 text-white/40">presents</span>
+            </p>
+
+            <h1 className="font-display text-[22vw] md:text-[12rem] lg:text-[14rem] leading-[0.8] tracking-wide text-white">
+              Film Making
+            </h1>
+            <p className="font-serif italic text-4xl md:text-6xl lg:text-7xl text-primary -mt-1 md:-mt-3 mb-8">
+              from scratch
+            </p>
+
+            <p className="text-[11px] md:text-sm uppercase tracking-[0.45em] text-white/70 mb-10">
+              {WORKSHOP.dates} <span className="text-primary mx-2">/</span> Limited seats
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href={WORKSHOP.paymentUrl} target="_blank" rel="noopener noreferrer" className={btnSolid}>
+                Pay &amp; Book Seat
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a href="#register" className={btnGhost}>
+                Register via WhatsApp
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ───────── TAGLINE STRIP ───────── */}
+        <div className="border-y border-white/10 py-6 overflow-hidden">
+          <p className="font-display text-2xl md:text-3xl tracking-[0.3em] text-center text-white/80">
+            Learn <span className="text-primary">·</span> Practice <span className="text-primary">·</span> Create
+          </p>
+        </div>
+
+        {/* ───────── THE PROGRAMME ───────── */}
+        <section id="learn" className="py-24 md:py-32 px-6">
+          <div className="container mx-auto grid lg:grid-cols-12 gap-12 lg:gap-16">
+            <div className="lg:col-span-4 lg:sticky lg:top-32 self-start">
+              <Eyebrow>The Programme</Eyebrow>
+              <h2 className="font-display text-6xl md:text-7xl leading-[0.9] mb-6">
+                What you <br />
+                <span className="font-serif italic normal-case text-primary text-5xl md:text-6xl">will learn</span>
+              </h2>
+              <p className="text-white/60 leading-relaxed max-w-sm">
+                Two days that take you through the whole filmmaking process, from your first frame to the final
+                colour grade.
               </p>
-
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-6">
-                <span className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
-                <span className="text-sm font-semibold text-primary">2 Days Workshop</span>
-              </div>
-
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase italic leading-none mb-2">
-                Film Making
-              </h1>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase italic text-gradient-amber mb-6">
-                From Scratch
-              </h1>
-
-              <p className="text-sm md:text-base tracking-[0.4em] text-muted-foreground mb-8">
-                LEARN • PRACTICE • CREATE
-              </p>
-
-              <div className="flex flex-wrap gap-4 mb-10">
-                <div className="flex items-center gap-3 px-5 py-3 rounded-lg cinema-card">
-                  <CalendarDays className="w-6 h-6 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Dates</p>
-                    <p className="font-bold">November 14th &amp; 15th</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 px-5 py-3 rounded-lg cinema-card">
-                  <Users className="w-6 h-6 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Seats</p>
-                    <p className="font-bold">Limited Seats Only</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 px-5 py-3 rounded-lg cinema-card">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Venue &amp; Timings</p>
-                    <p className="font-bold">Shared via WhatsApp</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href={WORKSHOP.paymentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary-hero group"
-                >
-                  <CreditCard className="w-5 h-5" />
-                  Pay &amp; Book Seat
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </a>
-                <a href="#register" className="btn-secondary-hero">
-                  Register via WhatsApp
-                </a>
-              </div>
             </div>
 
-            <div className="animate-scale-in">
+            <ol className="lg:col-span-8 border-t border-white/10">
+              {topics.map((topic, i) => (
+                <li
+                  key={topic.title}
+                  className="group grid grid-cols-[3.5rem_1fr] md:grid-cols-[5rem_1fr_auto] items-baseline gap-4 py-7 border-b border-white/10 transition-colors hover:bg-white/[0.02]"
+                >
+                  <span className="font-display text-2xl md:text-3xl text-white/25 group-hover:text-primary transition-colors">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="font-display text-3xl md:text-4xl tracking-wide">{topic.title}</h3>
+                  <p className="col-start-2 md:col-start-auto font-serif italic text-lg md:text-xl text-white/50">
+                    {topic.desc}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ───────── CALL SHEET ───────── */}
+        <section className="py-24 md:py-32 px-6 bg-[hsl(0_0%_5%)] border-y border-white/10">
+          <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative max-w-md mx-auto lg:mx-0 w-full">
+              <div className="absolute -inset-3 border border-white/10" />
               <img
                 src="/workshop-poster.png"
-                alt="Film Making From Scratch - 2 Days Workshop poster, November 14 & 15"
-                className="w-full max-w-md mx-auto rounded-xl border border-border shadow-2xl glow-amber"
+                alt={`Film Making From Scratch — 2 Days Workshop poster, ${WORKSHOP.dates}`}
+                className="relative w-full grayscale-[30%] hover:grayscale-0 transition-all duration-700"
               />
             </div>
-          </div>
-        </section>
 
-        {/* What You Will Learn */}
-        <section id="learn" className="py-20 px-4 md:px-6 bg-muted/20">
-          <div className="container mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                What You Will <span className="text-gradient-amber">Learn</span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Two packed days covering the complete film making process — from camera basics to the final grade.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {topics.map((topic) => (
-                <div
-                  key={topic.title}
-                  className="cinema-card p-6 text-center border-primary/30 hover:border-primary transition-colors duration-300 group"
-                >
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-lg bg-primary/10 flex items-center justify-center group-hover:glow-amber transition-all duration-300">
-                    <topic.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">{topic.title}</h3>
-                  <p className="text-sm text-muted-foreground">{topic.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Registration */}
-        <section id="register" className="py-20 px-4 md:px-6 relative overflow-hidden">
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-glow-pulse" />
-
-          <div className="container mx-auto relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                Turn Your Passion <br />
-                <span className="text-gradient-amber">Into a Profession</span>
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Seats are limited. Fill in your details and we'll confirm your spot for the
-                November 14th &amp; 15th workshop over WhatsApp. Venue and timing details will be
-                sent to you on WhatsApp after you register.
+              <Eyebrow>Call Sheet</Eyebrow>
+              <h2 className="font-display text-6xl md:text-7xl leading-[0.9] mb-10">The Details</h2>
+              <dl className="border-t border-white/10">
+                {callSheet.map((row) => (
+                  <div key={row.label} className="flex items-baseline justify-between gap-6 py-5 border-b border-white/10">
+                    <dt className="text-[11px] uppercase tracking-[0.35em] text-white/40">{row.label}</dt>
+                    <dd className="font-display text-2xl md:text-3xl tracking-wide text-right">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-6 text-sm text-white/50">
+                The venue and timings will be sent to you on WhatsApp after you register.
               </p>
-              <div className="cinema-card p-6 mb-6 border-primary/40">
-                <p className="text-sm text-muted-foreground mb-1">Already decided?</p>
-                <p className="font-bold text-lg mb-4">Pay online and lock your seat instantly</p>
-                <a
-                  href={WORKSHOP.paymentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary-hero w-full sm:w-auto"
-                >
-                  <CreditCard className="w-5 h-5" />
+            </div>
+          </div>
+        </section>
+
+        {/* ───────── REGISTER ───────── */}
+        <section id="register" className="py-24 md:py-32 px-6">
+          <div className="container mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24">
+            <div>
+              <Eyebrow>Book Your Seat</Eyebrow>
+              <h2 className="font-display text-6xl md:text-8xl leading-[0.85] mb-8">
+                Turn your passion
+                <span className="block font-serif italic normal-case text-primary text-5xl md:text-7xl mt-2">
+                  into a profession
+                </span>
+              </h2>
+
+              <div className="border-l-2 border-primary pl-6 mb-10">
+                <p className="text-white/60 mb-5">Already decided? Pay online and lock your seat now.</p>
+                <a href={WORKSHOP.paymentUrl} target="_blank" rel="noopener noreferrer" className={btnSolid}>
                   Pay Now
+                  <ArrowUpRight className="w-4 h-4" />
                 </a>
-                <p className="text-xs text-muted-foreground mt-3">
+                <p className="text-xs text-white/40 mt-4">
                   Secure payment via Razorpay · {WORKSHOP.paymentLabel}
                 </p>
               </div>
-              <p className="text-muted-foreground">
-                Questions? Call or WhatsApp us at{' '}
-                <a href="tel:+918555952544" className="text-primary font-semibold hover:underline">
+
+              <p className="text-sm text-white/50">
+                Questions? Call or WhatsApp{' '}
+                <a href="tel:+918555952544" className="text-primary hover:underline">
                   +91 85559 52544
                 </a>
               </p>
             </div>
 
-            <div className="cinema-card p-8">
-              <h3 className="text-2xl font-bold mb-6">Register for the Workshop</h3>
-              <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="border border-white/10 p-8 md:p-12">
+              <p className="text-[11px] uppercase tracking-[0.4em] text-white/40 mb-2">Or register first</p>
+              <h3 className="font-display text-4xl tracking-wide mb-10">Register on WhatsApp</h3>
+
+              <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Full Name</label>
+                  <label className="block text-[11px] uppercase tracking-[0.3em] text-white/50">Full Name</label>
                   <input
                     type="text"
                     value={formData.name}
@@ -216,7 +238,7 @@ const Workshop = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Phone Number</label>
+                  <label className="block text-[11px] uppercase tracking-[0.3em] text-white/50">Phone Number</label>
                   <input
                     type="tel"
                     value={formData.phone}
@@ -227,7 +249,7 @@ const Workshop = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Email Address</label>
+                  <label className="block text-[11px] uppercase tracking-[0.3em] text-white/50">Email Address</label>
                   <input
                     type="email"
                     value={formData.email}
@@ -237,21 +259,29 @@ const Workshop = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="w-full btn-primary-hero justify-center">
-                  Register Now
-                  <Send className="w-4 h-4" />
+                <button type="submit" className={`${btnGhost} w-full`}>
+                  Send on WhatsApp
+                  <ArrowRight className="w-4 h-4" />
                 </button>
-                <p className="text-sm text-center text-muted-foreground">
-                  Venue &amp; timings will be sent to you on WhatsApp.
-                </p>
-                <p className="text-xs text-center tracking-[0.3em] text-muted-foreground">
-                  LIMITED SEATS ONLY
+                <p className="text-xs text-center text-white/40">
+                  We'll send the venue &amp; timings on WhatsApp · Limited seats only
                 </p>
               </form>
             </div>
           </div>
         </section>
+
+        {/* ───────── END CARD ───────── */}
+        <section className="py-20 px-6 border-t border-white/10 text-center">
+          <p className="font-display text-[14vw] md:text-[9rem] leading-none text-white/[0.06] select-none">
+            Fade In
+          </p>
+          <p className="text-[11px] uppercase tracking-[0.5em] text-white/40 -mt-4 md:-mt-10">
+            {WORKSHOP.dates} · KVR Film School × Dotmov_studio
+          </p>
+        </section>
       </main>
+
       <Footer />
       <WorkshopPopup variant="workshop" />
     </div>
